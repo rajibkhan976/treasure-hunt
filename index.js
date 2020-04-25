@@ -113,17 +113,17 @@ function chestClicked(imageIdentifier, e){
 	if (imageIdentifier !== randomNumber) {
 		if (imageIdentifier === 1) {
 			replaceImage.id = 'image-one';
-			replaceImage.style = 'width: 15em; height: 10em;';
+			replaceImage.style = 'width: 15em; height: 13em;';
 			chestsDiv.replaceChild(replaceImage, imageOneTag);
 			removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag);
 		} else if (imageIdentifier === 2) {
 			replaceImage.id = 'image-two';
-			replaceImage.style = 'width: 15em; height: 10em; margin-left: 1em;';
+			replaceImage.style = 'width: 15em; height: 13em; margin-left: 1em;';
 			chestsDiv.replaceChild(replaceImage, imageTwoTag);
 			removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag);
 		} else {
 			replaceImage.id = 'image-three';
-			replaceImage.style = 'width: 15em; height: 10em; margin-left: 1em;';
+			replaceImage.style = 'width: 15em; height: 13em; margin-left: 1em;';
 			chestsDiv.replaceChild(replaceImage, imageThreeTag);
 			removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag);
 		}
@@ -149,18 +149,14 @@ function getImageFromPexels(){
 }
 
 function refresh(e){
-	if (chestsDiv.hasChildNodes()) {
-		let chestsDivChilds = chestsDiv.childNodes;
-		for (let i = 0; i < chestsDivChilds.length; i++) {
-			if (chestsDivChilds[i].src !== 'images/chest-closed.png') {
-				chestsDivChilds[i].src = 'images/chest-closed.png';
-			}
-		}
-		var imageOneTag = document.getElementById("image-one");
-		var imageTwoTag = document.getElementById("image-two");
-		var imageThreeTag = document.getElementById("image-three");
-		initChestEventListeners(imageOneTag, imageTwoTag, imageThreeTag, e);
-	}
+	
+	var imageOneTag = document.getElementById("image-one");
+	var imageTwoTag = document.getElementById("image-two");
+	var imageThreeTag = document.getElementById("image-three");
+	chestsDiv.removeChild(imageOneTag);
+	chestsDiv.removeChild(imageTwoTag);
+	chestsDiv.removeChild(imageThreeTag);
+	initChests(e);
 }
 
 function removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag){
