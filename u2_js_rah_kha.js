@@ -4,7 +4,7 @@
 var chestsDiv = document.getElementById("chests"); //capturing the div element by id
 var refreshButton = document.getElementById("refresh-button"); //capturing the refresh button by id
 let score = 0; //initializing the score 
-//adding the game initiator event while window loads for
+//adding the game initiator event while window loads
 window.addEventListener("load", init);
 
 function init(){
