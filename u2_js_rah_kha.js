@@ -58,15 +58,30 @@ document.onreadystatechange = function () {
 		//adding the click event to the refresh button
 		refreshButton.addEventListener("click", refresh);
 	}
+	
+	function imageOneClickListener(e) {
+		//event listener for image one
+		chestClicked(1, e);
+	}
+	
+	function imageTwoClickListener(e) {
+		//event listener for image two
+		chestClicked(2, e);
+	}
+	
+	function imageThreeClickListener(e) {
+		//event listener for image three
+		chestClicked(3, e);
+	}
 
 	function initChestEventListeners(imageOneTag, imageTwoTag, imageThreeTag, e) {
 		//adding click events to the chests images
-		imageOneTag.addEventListener("click", function () {chestClicked(1, e)}, false);
-		imageTwoTag.addEventListener("click", function () {chestClicked(2, e)}, false);
-		imageThreeTag.addEventListener("click", function () {chestClicked(3, e)}, false);
+		imageOneTag.addEventListener("click", imageOneClickListener, false);
+		imageTwoTag.addEventListener("click", imageTwoClickListener, false);
+		imageThreeTag.addEventListener("click", imageThreeClickListener, false);
 	}
 
-	function placeTreassure(imageOneTag, imageTwoTag, imageThreeTag, imageIdentifier, randomNumber){
+	function placeTreassure(imageOneTag, imageTwoTag, imageThreeTag, imageIdentifier, randomNumber, e){
 		//palcing the treasure image based on the result of random matches
 		getImageFromPexels();
 		
@@ -91,21 +106,21 @@ document.onreadystatechange = function () {
 			chestsDiv.replaceChild(treasureImage, imageOneTag);
 			score += 5;
 			scoreCounter.innerHTML = `Score: ${score}`;
-			removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag);
+			removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag, e);
 		} else if (imageIdentifier === 2 && randomNumber === 2) {
 			treasureImage.id = 'image-two';
 			treasureImage.style = 'width: 15em; height: 10em; margin-left: 1em;';
 			chestsDiv.replaceChild(treasureImage, imageTwoTag);
 			score += 5;
 			scoreCounter.innerHTML = `Score: ${score}`;
-			removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag);
+			removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag, e);
 		} else {
 			treasureImage.id = 'image-three';
 			treasureImage.style = 'width: 15em; height: 10em; margin-left: 1em;';
 			chestsDiv.replaceChild(treasureImage, imageThreeTag);
 			score += 5;
 			scoreCounter.innerHTML = `Score: ${score}`;
-			removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag);
+			removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag, e);
 		}
 	}
 
@@ -116,6 +131,7 @@ document.onreadystatechange = function () {
 		var imageOneTag = document.getElementById("image-one"); //capturing the image tag by id
 		var imageTwoTag = document.getElementById("image-two"); //capturing the image tag by id
 		var imageThreeTag = document.getElementById("image-three"); //capturing the image tag by id
+		removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag, e);
 		
 		let replaceImage = document.createElement('img'); //creating the opened chest image tag
 		replaceImage.src = 'images/chest-open.png';
@@ -125,17 +141,14 @@ document.onreadystatechange = function () {
 				replaceImage.id = 'image-one';
 				replaceImage.style = 'width: 15em; height: 13em;';
 				chestsDiv.replaceChild(replaceImage, imageOneTag);
-				removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag);
 			} else if (imageIdentifier === 2) {
 				replaceImage.id = 'image-two';
 				replaceImage.style = 'width: 15em; height: 13em; margin-left: 1em;';
 				chestsDiv.replaceChild(replaceImage, imageTwoTag);
-				removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag);
 			} else {
 				replaceImage.id = 'image-three';
 				replaceImage.style = 'width: 15em; height: 13em; margin-left: 1em;';
 				chestsDiv.replaceChild(replaceImage, imageThreeTag);
-				removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag);
 			}
 		} else {
 			placeTreassure(imageOneTag, imageTwoTag, imageThreeTag, imageIdentifier, randomNumber);
@@ -168,11 +181,11 @@ document.onreadystatechange = function () {
 		initChests(e);
 	}
 
-	function removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag){
+	function removeChestEvents(imageOneTag, imageTwoTag, imageThreeTag, e){
 		//removing the click events from the chests iimages
-		imageOneTag.removeEventListener("click", function () {chestClicked(1, e)}, false);
-		imageTwoTag.removeEventListener("click", function () {chestClicked(2, e)}, false);
-		imageThreeTag.removeEventListener("click", function () {chestClicked(3, e)}, false);
+		imageOneTag.removeEventListener("click", imageOneClickListener, false);
+		imageTwoTag.removeEventListener("click", imageTwoClickListener, false);
+		imageThreeTag.removeEventListener("click", imageThreeClickListener, false);
 	}
 
   }
